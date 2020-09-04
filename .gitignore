@@ -1,0 +1,12 @@
+#
+# Dirs
+#
+Build/*
+
+#
+# Backups
+#
+*~
+*.bak
+*.orig
+
