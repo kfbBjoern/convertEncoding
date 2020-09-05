@@ -21,6 +21,7 @@ set(PROJECT_INCLUDE "../include/")
 
 add_executable(${PROJECT_NAME}  main.cpp 
                                 handleOptions.cpp
+                                handleFiles.cpp
                                 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
