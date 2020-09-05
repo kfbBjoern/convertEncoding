@@ -15,7 +15,14 @@ int main (int argc, char** argv)
 
     int counter {0};
     for (auto&& path : filesToConvert) {
-        std::cout << ++counter <<".\t:" << path << "\n";
+        std::cout << ++counter <<".\t:" << path;
+        if ( convertFile(path) ) 
+        {
+            std::cout << "....ok\n";
+        }
+        else {
+            std::cout << "....ERROR\n";
+        };
     }
     return 0;
 }

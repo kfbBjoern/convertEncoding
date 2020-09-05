@@ -1,6 +1,8 @@
 #include "handleFiles.hpp"
 #include <filesystem>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 
 namespace fs = std::filesystem;
@@ -29,4 +31,34 @@ void  addFiles(std::vector< std::string >& files, std::string parameter)
     }
 
     return;
+}
+
+bool hasFileBOM(std::fstream& file)
+{
+    std::string bom;
+    std::getline(file, bom);
+    file.seekg(0);
+    if ('\xEF' == bom[0] && '\xBB' == bom[1] && '\xBF' == bom[2])
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+
+}
+
+bool convertFile(std::string& path)
+{
+    std::fstream stream(path.c_str());
+    if (!stream.good() || stream.bad()) {
+        return false;
+    }
+
+    if (hasFileBOM(stream))
+    {
+        return true;
+    }
+    return false;
 }
