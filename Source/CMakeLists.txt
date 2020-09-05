@@ -13,6 +13,12 @@ project(convertEncoding VERSION 0.1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(MSVC)
+else()
+    set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
+endif()                           
+
+
 # Include
 set(PROJECT_INCLUDE "../include/")
 
