@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 
+#include "windows.h"
 
 namespace fs = std::filesystem;
 
@@ -49,6 +50,31 @@ bool hasFileBOM(std::fstream& file)
 
 }
 
+void readFile(std::fstream& stream, std::string& content)
+{
+    stream.imbue(std::locale("C"));
+    stream.seekg(0, std::ios::end);   
+    content.reserve(stream.tellg());
+    stream.seekg(0, std::ios::beg);
+
+    content.assign((std::istreambuf_iterator<char>(stream)),
+                std::istreambuf_iterator<char>());                
+    return;
+}
+
+void convertString(std::string& content, std::string& utf8Content)
+{
+    std::string codepage_str;
+    int size = MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(),content.length(), nullptr, 0);
+
+    std::wstring utf16_str(size, '\0');
+    MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(), content.length(), &utf16_str[0], size);
+
+    int utf8_size = WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(),utf16_str.length(), nullptr, 0, nullptr, nullptr);
+    utf8Content.resize(utf8_size);
+    WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(), utf16_str.length(), &utf8Content[0], utf8_size, nullptr, nullptr);
+}
+
 bool convertFile(std::string& path)
 {
     std::fstream stream(path.c_str());
@@ -60,5 +86,10 @@ bool convertFile(std::string& path)
     {
         return true;
     }
+    std::string content;
+    readFile(stream, content);
+    std::string utf8Content;
+    convertString(content, utf8Content);
+    std::cout << "DEBUG:\n" << utf8Content << "DEBUG\n";
     return false;
 }

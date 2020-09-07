@@ -9,14 +9,14 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/Build/convertEncoding",
-            "args": [],
+            "args": ["../test"],
             "stopAtEntry": true,
             "cwd": "${workspaceRoot}/Build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
 
-            "preLaunchTask": "Make",
+            "preLaunchTask": "Setup Test",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
