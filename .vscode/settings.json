@@ -48,5 +48,6 @@
         "deque": "cpp",
         "numeric": "cpp",
         "optional": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/Source"
 }

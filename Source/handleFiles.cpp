@@ -4,7 +4,9 @@
 #include <fstream>
 #include <string>
 
+#ifdef WIN32
 #include "windows.h"
+#endif
 
 namespace fs = std::filesystem;
 
@@ -25,7 +27,7 @@ void  addFiles(std::vector< std::string >& files, std::string parameter)
         {
             // demo_status(*it, it->symlink_status()); // use cached status from directory entry
             if (fs::is_regular_file(p)) {
-                files.emplace_back(p.path());
+                files.emplace_back(p.path().string());
             }
         }
         return;
@@ -64,15 +66,21 @@ void readFile(std::fstream& stream, std::string& content)
 
 void convertString(std::string& content, std::string& utf8Content)
 {
+#ifdef WIN32
     std::string codepage_str;
-    int size = MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(),content.length(), nullptr, 0);
+    int contentLength = static_cast <int> (content.length());
+    int size = MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(), contentLength, nullptr, 0);
 
     std::wstring utf16_str(size, '\0');
-    MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(), content.length(), &utf16_str[0], size);
+    MultiByteToWideChar(CP_ACP, MB_COMPOSITE, content.c_str(), contentLength, &utf16_str[0], size);
+    int utf16_strLength = static_cast <int> (utf16_str.length());
 
-    int utf8_size = WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(),utf16_str.length(), nullptr, 0, nullptr, nullptr);
+    int utf8_size = WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(), utf16_strLength, nullptr, 0, nullptr, nullptr);
     utf8Content.resize(utf8_size);
-    WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(), utf16_str.length(), &utf8Content[0], utf8_size, nullptr, nullptr);
+    WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(), utf16_strLength, &utf8Content[0], utf8_size, nullptr, nullptr);
+#else
+    utf8Content = content;
+#endif
 }
 
 bool convertFile(std::string& path)
