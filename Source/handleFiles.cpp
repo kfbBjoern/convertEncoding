@@ -83,6 +83,16 @@ void convertString(std::string& content, std::string& utf8Content)
 #endif
 }
 
+void writeFile(std::fstream& stream, std::string& content)
+{
+  stream.imbue(std::locale("de_DE.utf8"));
+  stream.seekg(0, std::ios::beg);
+
+  stream << '\xEF' << '\xBB' << '\xBF'
+          << content;
+  return;
+}
+
 bool convertFile(std::string& path)
 {
     std::fstream stream(path.c_str());
@@ -98,6 +108,6 @@ bool convertFile(std::string& path)
     readFile(stream, content);
     std::string utf8Content;
     convertString(content, utf8Content);
-    std::cout << "DEBUG:\n" << utf8Content << "DEBUG\n";
-    return false;
+    writeFile(stream, utf8Content);
+    return true;
 }
