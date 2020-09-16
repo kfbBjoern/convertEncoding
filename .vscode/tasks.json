@@ -5,7 +5,7 @@
             "label": "Config",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/Build"
+                "cwd": "${workspaceRoot}/build"
             },
             "command": "cmake ../Source",
             "problemMatcher": [
@@ -20,7 +20,7 @@
             "label": "Build debug",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/Build"
+                "cwd": "${workspaceRoot}/build"
             },
             "command": "cmake -DCMAKE_BUILD_TYPE:STRING=Debug  --clean-first --build .",
             "problemMatcher": [
@@ -35,7 +35,7 @@
             "label": "Make",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/Build"
+                "cwd": "${workspaceRoot}/build"
             },
             "command": "make -j 4",
             "problemMatcher": [

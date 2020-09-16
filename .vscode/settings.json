@@ -49,5 +49,6 @@
         "numeric": "cpp",
         "optional": "cpp"
     },
-    "cmake.sourceDirectory": "${workspaceFolder}/Source"
+    "cmake.sourceDirectory": "${workspaceFolder}/Source",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

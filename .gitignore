@@ -2,6 +2,7 @@
 # Dirs
 #
 Build/*
+build/*
 test/*
 #
 # Backups

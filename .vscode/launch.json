@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - Aktive Datei erstellen und debuggen",
+            "name": "converEncoding debuggen",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/Build/convertEncoding",
-            "args": ["../test"],
+            "program": "${workspaceRoot}/build/convertEncoding",
+            "args": ["test"],
             "stopAtEntry": true,
-            "cwd": "${workspaceRoot}/Build",
+            "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
