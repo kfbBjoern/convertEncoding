@@ -66,6 +66,19 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "type":"shell",
+            "label":"Setup Test",
+            "command":"cp -r TestFiles test",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+
         }
     ]
 }

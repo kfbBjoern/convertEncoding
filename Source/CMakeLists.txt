@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if(MSVC)
+    set(DEFINE_SYMBOL WIN32)
 else()
     set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
 endif()                           
@@ -42,4 +43,7 @@ else()
 endif()                           
 
 # Add Libraries for filesystem
-target_link_libraries(${PROJECT_NAME} stdc++fs )                           
+if (MSVC)
+else()
+    target_link_libraries(${PROJECT_NAME} stdc++fs )
+endif()
