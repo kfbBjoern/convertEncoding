@@ -52,16 +52,17 @@ bool hasFileBOM(std::fstream& file)
 
 }
 
-void readFile(std::fstream& stream, std::string& content)
+bool readFile(std::fstream& stream, std::string& content)
 {
     stream.imbue(std::locale("C"));
     stream.seekg(0, std::ios::end);   
-    content.reserve(stream.tellg());
+    std::size_t length = stream.tellg();
+    content.reserve(length);
     stream.seekg(0, std::ios::beg);
 
     content.assign((std::istreambuf_iterator<char>(stream)),
                 std::istreambuf_iterator<char>());                
-    return;
+    return false;
 }
 
 void convertString(std::string& content, std::string& utf8Content)
@@ -105,9 +106,11 @@ bool convertFile(std::string& path)
         return true;
     }
     std::string content;
-    readFile(stream, content);
-    std::string utf8Content;
-    convertString(content, utf8Content);
-    writeFile(stream, utf8Content);
-    return true;
+    if (readFile(stream, content)) {
+        std::string utf8Content;
+        convertString(content, utf8Content);
+        writeFile(stream, utf8Content);
+        return true;
+    }
+    return false;
 }
