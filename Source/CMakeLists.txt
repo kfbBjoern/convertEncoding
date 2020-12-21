@@ -5,8 +5,7 @@ set (PROJECT_NAME convertEncoding)
 
 
 # set the project name and version
-project(convertEncoding VERSION 0.1.0.0)
-
+project(convertEncoding VERSION 0.2.0)
 # Settings
 
 # C++
@@ -21,8 +20,9 @@ endif()
 
 
 # Include
-set(PROJECT_INCLUDE "../include/")
-
+set(PROJECT_INCLUDE "../Include/")
+configure_file(${PROJECT_INCLUDE}/version.hpp.in ${PROJECT_INCLUDE}/version.hpp)
+include_directories(${PROJECT_INCLUDE})
 
 # Pre Build steps
 

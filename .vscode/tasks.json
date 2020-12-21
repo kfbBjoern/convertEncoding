@@ -5,9 +5,9 @@
             "label": "Config",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceRoot}"
             },
-            "command": "cmake ../Source",
+            "command": "mkdir build && cd build && cmake ../Source",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -29,7 +29,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "dependsOn" : "Config"
         },
         {
             "label": "Make",
@@ -44,7 +45,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "dependsOn" : "Build debug"
         },
         {
             "type": "shell",
