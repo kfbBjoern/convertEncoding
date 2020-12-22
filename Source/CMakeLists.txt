@@ -1,12 +1,12 @@
 set (PROJECT_NAME convertEncoding)
 
+
 cmake_minimum_required(VERSION 3.10)
 set (PROJECT_NAME convertEncoding)
 
 
 # set the project name and version
-project(convertEncoding VERSION 0.1.0.0)
-
+project(convertEncoding VERSION 0.2.0)
 # Settings
 
 # C++
@@ -21,8 +21,12 @@ endif()
 
 
 # Include
-set(PROJECT_INCLUDE "../include/")
-
+message(${PROJECT_SOURCE_DIR})
+set(PROJECT_INCLUDE "../Include/")
+message(${PROJECT_INCLUDE})
+configure_file(${PROJECT_INCLUDE}/version.hpp.in ${PROJECT_BINARY_DIR}/version.hpp)
+include_directories(${PROJECT_BINARY_DIR})
+##include_directories(${PROJECT_INCLUDE})
 
 # Pre Build steps
 

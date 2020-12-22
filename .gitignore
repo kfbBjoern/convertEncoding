@@ -5,6 +5,10 @@ Build/*
 build/*
 test/*
 #
+# automatically created
+#
+Include/version.hpp
+#
 # Backups
 #
 *~
