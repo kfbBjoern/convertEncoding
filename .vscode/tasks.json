@@ -7,7 +7,7 @@
             "options": {
                 "cwd": "${workspaceRoot}"
             },
-            "command": "mkdir build && cd build && cmake ../Source",
+            "command": "mkdir -p build && cd build && cmake ../Source",
             "problemMatcher": [
                 "$gcc"
             ],
