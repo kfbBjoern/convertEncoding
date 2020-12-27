@@ -1,12 +1,13 @@
 # convertEncoding
-converts the given encoding (currently WINDOWS) of a file or directory to utf-8 with BOM
+converts the given encoding (currently WINDOWS) of a file or directory to utf-8 with BOM.
 
 ## License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1, February 1999
+The work is licensed under Apache License form Version 2.0, January 2004.
+See LICENSE
 
 ## Usage
 **convertEncoding [path]**
-path = poath to a file or directory
+path = path to a file or directory
 
 ## Build
 
