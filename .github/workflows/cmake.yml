@@ -7,7 +7,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  build-ubuntu:
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
@@ -30,7 +30,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE/Source -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: cmake -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE $GITHUB_WORKSPACE/Source
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
@@ -41,5 +41,31 @@ jobs:
     - name: Archive release version
       uses: actions/upload-artifact@v2
       with:
-        name: convertEncodingRelease
+        name: convertEncodingUbuntuRelease
         path: ${{runner.workspace}}/build/convertEncoding
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure CMake
+      working-directory: ${{runner.workspace}}/build
+      run: cmake ${{runner.workspace}}/convertEncoding/Source
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: |
+           cmake --build . --config $env:BUILD_TYPE
+           copy ${{runner.workspace}}/Source/NOTICE $env:BUILD_TYPE
+           copy ${{runner.workspace}}/Source/LICENSE $env:BUILD_TYPE
+      
+    - name: Archive release version
+      uses: actions/upload-artifact@v2
+      with:
+        name: convertEncodingWindowsRelease
+        path: ${{runner.workspace}}/build/Release     
