@@ -13,8 +13,20 @@ void print_usage()
     std::cout << "path\tpath or file name to convert all files recursive \n ";
 }
 
+
+void managingErrors(int error)
+{    std::cout << "\n" << "during the conversion " ;
+    if (error > 0) {
+        std::cout << error << "errors ocurred.";
+    }
+    else {
+        std::cout << "no error ocurred.\n";
+    }
+}
+
 int main (int argc, char** argv)
 {
+    int error = 0;
     if (argc == 1) {
         print_usage();
     }
@@ -29,14 +41,16 @@ int main (int argc, char** argv)
 
     int counter {0};
     for (auto&& path : filesToConvert) {
-        std::cout << ++counter <<".\t:" << path;
-        if ( convertFile(path) ) 
-        {
-            std::cout << "....ok\n";
+        std::cout << "\n" << ++counter <<".\t:" << path;
+        try {
+            convertFile(path); 
         }
-        else {
-            std::cout << "....ERROR\n";
-        };
+        catch(std::exception const& e)
+        {
+            std::cout << "Error: " << e.what();
+            ++error;
+        } 
     }
-    return 0;
+    managingErrors(error);
+    return error;
 }

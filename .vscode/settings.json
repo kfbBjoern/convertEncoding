@@ -47,7 +47,13 @@
         "typeinfo": "cpp",
         "deque": "cpp",
         "numeric": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "cstring": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "thread": "cpp",
+        "cfenv": "cpp",
+        "cinttypes": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}/Source",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
