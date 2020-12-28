@@ -7,6 +7,6 @@
 
 void  addFiles(std::vector< std::string >& files, std::string parameter);
 
-bool convertFile(std::string& path);
+void convertFile(std::string& path);
 
 #endif // HANDLE_FILES

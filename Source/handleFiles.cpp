@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <exception>
 
 #ifdef WIN32
 #include "windows.h"
@@ -94,23 +95,21 @@ void writeFile(std::fstream& stream, std::string& content)
   return;
 }
 
-bool convertFile(std::string& path)
+void convertFile(std::string& path)
 {
     std::fstream stream(path.c_str());
     if (!stream.good() || stream.bad()) {
-        return false;
+        throw std::runtime_error("Bad file");
     }
 
     if (hasFileBOM(stream))
     {
-        return true;
+        return;
     }
     std::string content;
     if (readFile(stream, content)) {
         std::string utf8Content;
         convertString(content, utf8Content);
         writeFile(stream, utf8Content);
-        return true;
     }
-    return false;
 }
