@@ -7,7 +7,7 @@
             "options": {
                 "cwd": "${workspaceRoot}"
             },
-            "command": "mkdir -p build && cd build && cmake ../Source",
+            "command": "mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE:STRING=Debug  --clean-first ../Source",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -15,22 +15,6 @@
                 "kind": "build",
                 "isDefault": true
             }
-        },
-        {
-            "label": "Build debug",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            },
-            "command": "cmake -DCMAKE_BUILD_TYPE:STRING=Debug  --clean-first --build .",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "dependsOn" : "Config"
         },
         {
             "label": "Make",
@@ -46,7 +30,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "dependsOn" : "Build debug"
+            "dependsOn" : "Config"
         },
         {
             "type": "shell",

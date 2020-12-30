@@ -51,3 +51,9 @@ if (MSVC)
 else()
     target_link_libraries(${PROJECT_NAME} stdc++fs )
 endif()
+
+# Post Build Steps
+add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../NOTICE  $<TARGET_FILE_DIR:${PROJECT_NAME}>
+                    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../LICENSE  $<TARGET_FILE_DIR:${PROJECT_NAME}>
+                  )
