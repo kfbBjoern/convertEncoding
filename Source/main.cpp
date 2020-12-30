@@ -1,16 +1,18 @@
 #include <iostream>
 #include <vector>
-#include "handleOptions.hpp"
 #include "handleFiles.hpp"
+#include "Options.hpp"
 #include "version.hpp"
-
+#include <map>
+#include <variant>
 
 void print_usage()
 {
     std::cout << PROJECT_NAME << " version " <<  VERSION <<"\n\n";
-    std::cout << PROJECT_NAME << " [path] \n";
+    std::cout << PROJECT_NAME << " [path] --usage \n";
     std::cout << "=======================================================\n";
     std::cout << "path\tpath or file name to convert all files recursive \n ";
+    std::cout << "--usage -u to print this \n ";
 }
 
 
@@ -27,16 +29,16 @@ void managingErrors(int error)
 int main (int argc, char** argv)
 {
     int error = 0;
-    if (argc == 1) {
+    Options my_options(argc, argv);
+
+    if ((argc == 1) || (my_options.exists(std::string("usage")))) {
         print_usage();
     }
 
     std::vector< std::string > filesToConvert;
 
-    for (int i {1}; i < argc; ++i ) {
-        if (!isStringOption(std::string(argv[i]))) {
-            addFiles(filesToConvert, std::string(argv[i]));
-        }
+    for (auto& path : my_options.getUnhandledOptions() ) {
+        addFiles(filesToConvert, path);
     }
 
     int counter {0};
