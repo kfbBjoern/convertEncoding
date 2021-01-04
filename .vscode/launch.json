@@ -13,7 +13,7 @@
                 "test", 
                 "--usage",
                 "--Blödsinn", "\"ganz viel text in hochkommas\"",
-                "-E"
+                "-E", "\"pdf, odt, xls, xlsm,ods\""
             ],
             "stopAtEntry": true,
             "cwd": "${workspaceRoot}",

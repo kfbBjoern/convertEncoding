@@ -1,9 +1,11 @@
 #include "handleFiles.hpp"
+
 #include <filesystem>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <exception>
+#include <string_view>
 
 #ifdef WIN32
 #include "windows.h"
@@ -11,7 +13,7 @@
 
 namespace fs = std::filesystem;
 
-void  addFiles(std::vector< std::string >& files, std::string parameter)
+void  addFiles(std::vector< std::string >& files, std::string parameter, std::list<std::string> excludes)
 {
     if (!std::filesystem::exists(parameter)) {
         std::cerr << "\t files does not exist :" << parameter << "\n";
@@ -19,16 +21,22 @@ void  addFiles(std::vector< std::string >& files, std::string parameter)
     }
 
     if (fs::is_regular_file(parameter)) {
-        files.emplace_back(parameter);
+        if ( checkSingleFile(parameter, excludes)) {
+            files.emplace_back(parameter);
+        }
         return;
     }
 
     if (fs::is_directory(parameter)) {
+
         for(auto& p: fs::recursive_directory_iterator(parameter))
         {
             // demo_status(*it, it->symlink_status()); // use cached status from directory entry
             if (fs::is_regular_file(p)) {
-                files.emplace_back(p.path().string());
+                std::string file_name {p.path().string()};
+                if ( checkSingleFile(file_name , excludes)) {
+                    files.emplace_back(file_name);
+                }
             }
         }
         return;
@@ -36,6 +44,19 @@ void  addFiles(std::vector< std::string >& files, std::string parameter)
 
     return;
 }
+
+
+bool checkSingleFile(std::string parameter, std::list<std::string> excludes)
+{
+    for (std::string& appendix : excludes) {
+        fs::path file {parameter};
+        if(file.extension() == appendix) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 bool hasFileBOM(std::fstream& file)
 {

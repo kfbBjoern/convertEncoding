@@ -8,14 +8,14 @@ Options::Options(int argc, char** argv)
     for (int i=1; i < argc ; ++i)
     {
         char *opt = argv[i];
-        std::cout << i << ". :" << opt;
+        //std::cout << i << ". :" << opt;
 
         if ( opt[0] == '-') {
-            std::cout << " Option";
+            //std::cout << " Option";
             if (opt[1] == '-') {
                 std::list<OptionsInput>::const_iterator possible = equalsLongOption(opt);
                 if (possible != PossibleOptions.cend()){
-                    std::cout << " long";
+                    //std::cout << " long";
                     std::string extension("");
                     if (possible->RequiresExtension) {
                         extension = std::string(argv[++i]);
@@ -36,15 +36,15 @@ Options::Options(int argc, char** argv)
                     AllOptions.insert(std::pair< std::string, std::variant<int, std::string> >(possible->LongName, extension));
                 }
                 else {
-                    std::cerr << "\n\t\tWrong long  Option:" << opt << "\n";
+                    std::cerr << "\n\t\tWrong short  Option:" << opt << "\n";
                 }
             }
         }
         else {
             UnhandledOptions.emplace_back(opt);
-            std::cout << "No Option";
+            // std::cout << "No Option";
         }
-        std::cout << "\n";
+        // std::cout << "\n";
     }
 }
 
@@ -80,4 +80,18 @@ bool Options::exists(const std::string input) const
         return true;
     }
     return false;
+}
+
+std::string Options::getExtensionFor(std::string long_name)
+{
+    std::string extension {""};
+    if (exists(std::string(long_name))) {
+        std::map<std::string, std::variant<int, std::string> >::const_iterator found = AllOptions.find(long_name);
+        if (found != AllOptions.cend()) {
+            if (std::holds_alternative<std::string>(found->second) ) {
+                extension = std::get<std::string>(found->second);
+            }
+        }
+    }
+    return extension;
 }

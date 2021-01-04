@@ -32,6 +32,7 @@ class Options
 
         bool exists(const std::string input) const;
         std::list< std::string > getUnhandledOptions() {return UnhandledOptions;};
+        std::string getExtensionFor(std::string long_name);
 
     private:
         std::map<std::string, std::variant<int, std::string> > AllOptions;
