@@ -31,8 +31,8 @@ include_directories(${PROJECT_BINARY_DIR})
 # Pre Build steps
 
 add_executable(${PROJECT_NAME}  main.cpp 
-                                handleOptions.cpp
                                 handleFiles.cpp
+                                Options.cpp
                                 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

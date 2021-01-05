@@ -9,7 +9,12 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/convertEncoding",
-            "args": ["test"],
+            "args": [
+                "test", 
+                "--usage",
+                "--Blödsinn", "\"ganz viel text in hochkommas\"",
+                "-E", "\"pdf, odt, xls, xlsm,ods\""
+            ],
             "stopAtEntry": true,
             "cwd": "${workspaceRoot}",
             "environment": [],
