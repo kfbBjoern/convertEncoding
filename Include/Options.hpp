@@ -39,6 +39,7 @@ class Options
 
         std::list<OptionsInput> PossibleOptions 
         {
+            OptionsInput(std::string("auto_deselect"),	 0u, 'A'),
 	    	OptionsInput(std::string("exclude"), 1u, 'E'),
 		    OptionsInput(std::string("usage"),	 0u, 'U')
     	};
@@ -48,6 +49,7 @@ class Options
         std::list<OptionsInput>::const_iterator equalsLongOption(const char* opt) const;
         std::list<OptionsInput>::const_iterator equalsShortOption(const char* opt) const;
 
+        void setOptionsAutoDeselect();
 };
 
 #endif // OPTIONS

@@ -46,6 +46,10 @@ Options::Options(int argc, char** argv)
         }
         // std::cout << "\n";
     }
+
+    if ( this->exists(std::string {"auto_deselect"}) ) {
+        setOptionsAutoDeselect();
+    }
 }
 
 std::list<OptionsInput>::const_iterator Options::equalsLongOption(const char* opt) const
@@ -77,6 +81,7 @@ bool Options::exists(const std::string input) const
 {
     std::map<std::string, std::variant<int, std::string> >::const_iterator found = AllOptions.find(input);
     if ( found != AllOptions.end()) {
+        std::cout << "DEBUG" << found->first << "\n";
         return true;
     }
     return false;
@@ -94,4 +99,14 @@ std::string Options::getExtensionFor(std::string long_name)
         }
     }
     return extension;
+}
+
+void Options::setOptionsAutoDeselect()
+{
+    std::string option {"exclude"};
+    std::string extension { std::string("accdb, asd, avi, bmp, cab, doc, docm, docx, dot, dotm, dotx, exe, gif, gz, jar, jpeg, ") +
+                            std::string("jpg, lib, m4v, mdb, mid, mov, mp3, mp4, mpeg, mpg, ods, odt, pdf, ppt, pptm, pptx, rar") +
+                            std::string(", rec, tar, tif und tiff, tmp, wdb, wks, wmv, wps, xlam, xlk, xll, xls, xlsb, xlsm, ") +
+                            std::string("xlsx, xltx, xps, zip")};
+    AllOptions.insert(std::pair< std::string, std::variant<int, std::string> >(option, extension)) ;
 }
