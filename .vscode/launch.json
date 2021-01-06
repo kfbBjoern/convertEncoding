@@ -11,9 +11,7 @@
             "program": "${workspaceRoot}/build/convertEncoding",
             "args": [
                 "test", 
-                "--usage",
-                "--Blödsinn", "\"ganz viel text in hochkommas\"",
-                "-E", "\"pdf, odt, xls, xlsm,ods\""
+                "-A"
             ],
             "stopAtEntry": true,
             "cwd": "${workspaceRoot}",

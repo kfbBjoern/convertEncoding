@@ -16,8 +16,12 @@ void print_usage()
     std::cout << PROJECT_NAME << " [path] --usage \n";
     std::cout << "=======================================================\n";
     std::cout << "path\tpath or file name to convert all files recursive \n ";
-    std::cout << "--usage -u to print this \n ";
-    std::cout << "-exclude list of file appendencies to exclude from converting i.e \"xls, pdf, xslm\" \n";
+    std::cout << "-auto_deselect / -A not converting files with the following appendencies accdb, asd, avi, bmp,"
+              << " cab, doc, docm, docx, dot, dotm, dotx, exe, gif, gz, jar, jpeg, jpg, lib, m4v, mdb, mid, mov,"
+              << " mp3, mp4, mpeg, mpg, ods, odt, pdf, ppt, pptm, pptx, rar, rec, tar, tif und tiff, tmp, wdb, wks,"
+              << " wmv, wps, xlam, xlk, xll, xls, xlsb, xlsm, xlsx, xltx, xps, zip \n";
+    std::cout << "--usage / -u to print this \n ";
+    std::cout << "-exclude / -E list of file appendencies to exclude from converting i.e \"xls, pdf, xslm\" \n";
 }
 
 
